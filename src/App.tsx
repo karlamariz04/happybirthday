@@ -9,6 +9,7 @@ import MiniGame3Feast from './components/MiniGame3Feast'
 import MiniGame4DevilFruit from './components/MiniGame4DevilFruit'
 import FinalIsland from './components/FinalIsland'
 import BirthdayReveal from './components/BirthdayReveal'
+import CrewCharacters from './components/CrewCharacters'
 
 const INITIAL_STATE: GameState = {
   screen: 'splash',
@@ -59,13 +60,14 @@ export default function App() {
   const screen = gameState.screen
 
   return (
-    <div style={{ width: '100vw', height: '100svh', overflow: 'hidden', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ width: '100vw', minHeight: '100vh', height: '100%', overflow: 'hidden', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)' }}>
       {/* Mobile-portrait container */}
       <div style={{
         width: '100%',
+        minHeight: '100%',
         height: '100%',
         maxWidth: 430,
-        maxHeight: 932,
+        maxHeight: '100%',
         position: 'relative',
         overflow: 'hidden',
         background: '#000',
@@ -81,44 +83,68 @@ export default function App() {
             style={{ position: 'absolute', inset: 0 }}
           >
             {screen === 'splash' && (
-              <SplashScreen onStart={() => navigate('map')} />
+              <>
+                <SplashScreen onStart={() => navigate('map')} />
+                <CrewCharacters scene="splash" />
+              </>
             )}
             {screen === 'map' && (
-              <AdventureMap gameState={gameState} onNavigate={navigate} />
+              <>
+                <AdventureMap gameState={gameState} onNavigate={navigate} />
+                <CrewCharacters scene="map" />
+              </>
             )}
             {screen === 'mini1' && (
-              <MiniGame1Navigation
-                onWin={() => collectRelic('compass')}
-                onBack={() => navigate('map')}
-              />
+              <>
+                <MiniGame1Navigation
+                  onWin={() => collectRelic('compass')}
+                  onBack={() => navigate('map')}
+                />
+                <CrewCharacters scene="mini1" />
+              </>
             )}
             {screen === 'mini2' && (
-              <MiniGame2Swords
-                onWin={() => collectRelic('crest')}
-                onBack={() => navigate('map')}
-              />
+              <>
+                <MiniGame2Swords
+                  onWin={() => collectRelic('crest')}
+                  onBack={() => navigate('map')}
+                />
+                <CrewCharacters scene="mini2" />
+              </>
             )}
             {screen === 'mini3' && (
-              <MiniGame3Feast
-                onWin={() => collectRelic('feast')}
-                onBack={() => navigate('map')}
-              />
+              <>
+                <MiniGame3Feast
+                  onWin={() => collectRelic('feast')}
+                  onBack={() => navigate('map')}
+                />
+                <CrewCharacters scene="mini3" />
+              </>
             )}
             {screen === 'mini4' && (
-              <MiniGame4DevilFruit
-                onWin={() => collectRelic('fruit')}
-                onBack={() => navigate('map')}
-              />
+              <>
+                <MiniGame4DevilFruit
+                  onWin={() => collectRelic('fruit')}
+                  onBack={() => navigate('map')}
+                />
+                <CrewCharacters scene="mini4" />
+              </>
             )}
             {screen === 'finalIsland' && (
-              <FinalIsland
-                gameState={gameState}
-                onReveal={() => navigate('birthdayReveal')}
-                onBack={() => navigate('map')}
-              />
+              <>
+                <FinalIsland
+                  gameState={gameState}
+                  onReveal={() => navigate('birthdayReveal')}
+                  onBack={() => navigate('map')}
+                />
+                <CrewCharacters scene="final" />
+              </>
             )}
             {screen === 'birthdayReveal' && (
-              <BirthdayReveal onRestart={restart} />
+              <>
+                <BirthdayReveal onRestart={restart} />
+                <CrewCharacters scene="birthday" />
+              </>
             )}
           </motion.div>
         </AnimatePresence>
